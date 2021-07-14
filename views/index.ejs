@@ -10,16 +10,16 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <h1>Chatty App</h1>
+            <h1>Chatty</h1>
             <p>Enter a username and a room name to chat away.</p>
             <form action="/chatroom" id="join-form">
                 <div class="form-field">
                     <label for="username">Username</label>
-                    <input required type="text" name="username" id="username-input">
+                    <input required type="text" name="username" id="username-input" autocomplete="off">
                 </div>
                 <div class="form-field">
                     <label for="room">Room name</label>
-                    <input required type="text" name="room" id="room-input">
+                    <input required type="text" name="room" id="room-input" autocomplete="off">
                 </div>
                 <input type="submit" value="Join">
             </form>

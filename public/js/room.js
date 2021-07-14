@@ -35,11 +35,22 @@ leaveButton.addEventListener('click', e => {
 
 socket.on('userRecieveMessage', data => {
     let msgDiv = document.createElement("div");
-    let msgClass = username == data.username ? 'sent-message' : 'recieved-message';
-    msgDiv.innerHTML = `<p class="sender">${data.username}</p><p class"content">${data.message}`;
+    let msgClass = username === data.username ? 'sent-message' : 'recieved-message';
+    let htmlStr = '';
+    msgDiv.id = data.uuid;
+    htmlStr = `<p class="sender">${data.username}`;
+    if (msgClass === 'sent-message')
+    htmlStr += '<span>X</span>';
+    htmlStr += `</p><p class"content">${data.message}</p>`;
+    msgDiv.innerHTML = htmlStr;
     msgDiv.classList.add("message",  msgClass);    
     messageBoard.appendChild(msgDiv);
     messageBoard.scrollTop = messageBoard.scrollHeight - messageBoard.clientHeight;
+
+    // SENT MESSAGE LISTENERS
+    let span = msgDiv.getElementsByClassName("sender")[0].getElementsByTagName("span")[0];
+    if (span)
+        span.addEventListener('click', e => deleteMessageHandler(e));
 });
 
 socket.on('userJoin', data => {
@@ -50,10 +61,22 @@ socket.on('userLeave', data => {
     displayConnectedUsers(data);
 });
 
+socket.on('messageDelete', uuid => {
+    messageBoard.removeChild(document.getElementById(uuid))
+});
+
+
+// FUNCTIONS
 function displayConnectedUsers(data) {
     let htmlStr = '';
     for (user of data) {
         htmlStr += `<li>${user}</li>`;
     }
     userList.innerHTML = htmlStr;
+}
+
+function deleteMessageHandler(e)  {
+    let msgDiv = e.target.parentNode.parentNode;
+    if (msgDiv)
+        socket.emit('userDeleteMessage', msgDiv.id);
 }

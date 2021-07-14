@@ -131,6 +131,17 @@ html, body {
     color: darkslategray;
 }
 
+.message .sender span {
+    float: right;
+    color: white;
+    cursor: pointer;
+}
+
+.message .sender span:hover {
+    float: right;
+    color: red;
+}
+
 .message.sent-message {
     width: 50%;
     float: right;
@@ -140,6 +151,7 @@ html, body {
 
 .message.sent-message .sender {
     color: white;
+    font-weight: bold;
 }
 
 .message.recieved-message {

@@ -33,6 +33,8 @@ io.on('connection', socket => {
         socket.on('userSendMessage', message => {
             io.to(data.room).emit('userRecieveMessage', chatroomController.buildMessageObject(data.username, message));
         });
+
+        socket.on('userDeleteMessage', uuid => io.to(data.room).emit('messageDelete', uuid));
     });
 
     socket.on('disconnect', () => {

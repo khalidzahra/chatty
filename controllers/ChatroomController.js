@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const RoomManager = require('./RoomManager');
 const UserManager = require('./UserManager');
+const { v4: uuid } = require('uuid');
 
 // RoomManager object
 const roomManager = new RoomManager();
@@ -45,6 +46,7 @@ function getUserList(roomName) {
 
 function buildMessageObject(username, message) {
     return {
+        uuid: uuid(),
         username,
         message
     }
