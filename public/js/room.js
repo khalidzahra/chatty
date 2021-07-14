@@ -35,8 +35,9 @@ leaveButton.addEventListener('click', e => {
 
 socket.on('userRecieveMessage', data => {
     let msgDiv = document.createElement("div");
+    let msgClass = username == data.username ? 'sent-message' : 'recieved-message';
     msgDiv.innerHTML = `<p class="sender">${data.username}</p><p class"content">${data.message}`;
-    msgDiv.classList.add("message");    
+    msgDiv.classList.add("message",  msgClass);    
     messageBoard.appendChild(msgDiv);
     messageBoard.scrollTop = messageBoard.scrollHeight - messageBoard.clientHeight;
 });
